@@ -10,4 +10,7 @@ onnx
 onnxruntime
 wheel
 pyctcdecode
+difflib
+numpy
+webrtcvad
 https://github.com/kpu/kenlm/archive/master.zip

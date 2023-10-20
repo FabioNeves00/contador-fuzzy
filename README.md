@@ -1,3 +1,9 @@
+# Credits to:
+- ![OliverGuhr](https://github.com/oliverguhr/wav2vec2-live)
+
+This is an altered version of the original code.
+All credits to the original ![author](https://github.com/oliverguhr/wav2vec2-live/tree/main)
+
 # automatic speech recognition with wav2vec2 
 
 Use any wav2vec model with a microphone.

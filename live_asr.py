@@ -6,7 +6,7 @@ import threading
 import time
 from sys import exit
 from queue import  Queue
-
+import difflib as fuzz
 
 class LiveWav2Vec2:
     exit_event = threading.Event()
@@ -117,16 +117,22 @@ class LiveWav2Vec2:
 
 if __name__ == "__main__":
     print("Live ASR")
-
-    asr = LiveWav2Vec2("oliverguhr/wav2vec2-large-xlsr-53-german-cv9")
+    count = 0
+    asr = LiveWav2Vec2("jonatasgrosman/wav2vec2-large-xlsr-53-portuguese")
 
     asr.start()
 
     try:
         while True:
             text, sample_length, inference_time, confidence = asr.get_last_text()
-            print(f"{sample_length:.3f}s\t{inference_time:.3f}s\t{confidence}\t{text}")
+            tests = text.split(" ")
+            for test in tests:
+                if fuzz.SequenceMatcher(None, "pessoal", test).ratio() > 0.8:
+                    count += 1
+                    print("\nTotal: " + str(count) + "\nLast test: " + str(test) + "\nTotal speech: " + str(text))
 
     except KeyboardInterrupt:
         asr.stop()
+        print("\nTotal de 'pessoal': " + str(count))
+        print("PPM (Pessoal por minuto) em 100 minutos (2 aulas de 50 min): " + str(count/50*2))
         exit()
